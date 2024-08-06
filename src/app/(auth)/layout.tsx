@@ -1,17 +1,15 @@
 "use client";
+
+import { BackgroundBeams } from "@/components/ui";
 import { useAuthStore } from "@/store";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import React from "react";
 
-export default function AuthLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  const router = useRouter();
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const { session } = useAuthStore();
+  const router = useRouter();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (session) {
       router.push("/");
     }
@@ -22,8 +20,11 @@ export default function AuthLayout({
   }
 
   return (
-    <main className="relative flex min-h-screen flex-col items-center justify-center py-12">
-      <section className="relative">{children}</section>
-    </main>
+    <div className="relative flex min-h-screen flex-col items-center justify-center py-12">
+      <BackgroundBeams />
+      <div className="relative">{children}</div>
+    </div>
   );
-}
+};
+
+export default Layout;
