@@ -66,10 +66,9 @@ export const useAuthStore = create<IAuthState>()(
             account.get<IUserPrefs>(),
             account.createJWT(),
           ]);
-
           if (!user.prefs.reputation)
             await account.updatePrefs<IUserPrefs>({ reputation: 0 });
-
+          set({ session, user, jwt });
           return { success: true };
         } catch (error) {
           console.log(error);
